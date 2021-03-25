@@ -70,7 +70,7 @@ cqlsh:students> SELECT RollNo,Name, LastExamPercent
 
  rollno | name   | lastexampercent
 --------+--------+-----------------
-      5 | Roshni |            97.5
+      5 | Suman  |            97.5
       1 |  Aswin |            95.5
 
 (2 rows)
