@@ -35,8 +35,8 @@ CREATE TABLE students.student_info (
     AND speculative_retry = '99PERCENTILE';
 
 cqlsh:students> BEGIN BATCH INSERT INTO Student_info(RollNo, Name, DateOfJoin, LastExamPercent) VALUES(1,'Aswin','2021-03-12',95.5) APPLY BATCH;
-BEGIN BATCH INSERT INTO Student_info(RollNo, Name, DateOfJoin, LastExamPercent) VALUES(2,'Anusree','2021-03-12',98.5) APPLY BATCH;
-BEGIN BATCH INSERT INTO Student_info(RollNo, Name, DateOfJoin, LastExamPercent) VALUES(5,'Roshni','2021-03-11',97.5) APPLY BATCH;
+BEGIN BATCH INSERT INTO Student_info(RollNo, Name, DateOfJoin, LastExamPercent) VALUES(2,'Shashank','2021-03-12',98.5) APPLY BATCH;
+BEGIN BATCH INSERT INTO Student_info(RollNo, Name, DateOfJoin, LastExamPercent) VALUES(5,'Suman','2021-03-11',97.5) APPLY BATCH;
 
 cqlsh:students> SELECT * FROM Student_info;
 
