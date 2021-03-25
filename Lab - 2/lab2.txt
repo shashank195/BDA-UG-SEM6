@@ -1,0 +1,239 @@
+cqlsh> CREATE KEYSPACE Students WITH REPLICATION = { 'class':'SimpleStrategy', 'replication_factor':1};
+cqlsh> DESCRIBE KEYSPACES
+
+students  system_schema  system_auth  system  system_distributed  system_traces
+
+cqlsh> USE Students
+   ... ;
+cqlsh:students> CREATE TABLE Student_info{
+            ... RollNo int PRIMARY KEY,
+            ... Name text,
+            ... DateOfJoin timestamp,
+            ... LastExamPercent doule
+            ... };
+
+cqlsh:students> DESCRIBE TABLE Student_info;
+
+CREATE TABLE students.student_info (
+    rollno int PRIMARY KEY,
+    dateofjoin timestamp,
+    lastexampercent double,
+    name text
+) WITH bloom_filter_fp_chance = 0.01
+    AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+    AND comment = ''
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32', 'min_threshold': '4'}
+    AND compression = {'chunk_length_in_kb': '64', 'class': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND crc_check_chance = 1.0
+    AND dclocal_read_repair_chance = 0.1
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99PERCENTILE';
+
+cqlsh:students> BEGIN BATCH INSERT INTO Student_info(RollNo, Name, DateOfJoin, LastExamPercent) VALUES(1,'Aswin','2021-03-12',95.5) APPLY BATCH;
+BEGIN BATCH INSERT INTO Student_info(RollNo, Name, DateOfJoin, LastExamPercent) VALUES(2,'Anusree','2021-03-12',98.5) APPLY BATCH;
+BEGIN BATCH INSERT INTO Student_info(RollNo, Name, DateOfJoin, LastExamPercent) VALUES(5,'Roshni','2021-03-11',97.5) APPLY BATCH;
+
+cqlsh:students> SELECT * FROM Student_info;
+
+ rollno | dateofjoin                      | lastexampercent | name
+--------+---------------------------------+-----------------+---------
+      5 | 2021-03-10 18:30:00.000000+0000 |            97.5 |   Suman
+      1 | 2021-03-11 18:30:00.000000+0000 |            95.5 |   Aswin
+      2 | 2021-03-11 18:30:00.000000+0000 |            98.5 |Shashank
+
+(3 rows)
+
+
+cqlsh:students> SELECT * FROM Student_info WHERE RollNo IN (1,2);
+
+ rollno | dateofjoin                      | lastexampercent | name
+--------+---------------------------------+-----------------+---------
+      1 | 2021-03-11 18:30:00.000000+0000 |            95.5 |   Aswin
+      2 | 2021-03-11 18:30:00.000000+0000 |            98.5 |Shashank
+
+(2 rows)
+cqlsh:students> CREATE INDEX ON Student_info(Name);
+cqlsh:students> SELECt * FROM STudent_info WHERE Name='Shashank';
+
+ rollno | dateofjoin                      | lastexampercent | name
+--------+---------------------------------+-----------------+---------
+      2 | 2021-03-11 18:30:00.000000+0000 |            98.5 | Shashank
+
+(1 rows)
+cqlsh:students> SELECT RollNo,Name, LastExamPercent
+            ... FROM Student_info LIMIT 2;
+
+ rollno | name   | lastexampercent
+--------+--------+-----------------
+      5 | Roshni |            97.5
+      1 |  Aswin |            95.5
+
+(2 rows)
+
+cqlsh:students> SELECT RollNo,LastExamPercent as "Score" FROM Student_info;
+
+ rollno | Score
+--------+-------
+      5 |  97.5
+      1 |  95.5
+      2 |  98.5
+
+(3 rows)
+cqlsh:students> UPDATE Student_info 
+            ... SET LastExamPercent=97
+            ... WHERE RollNo=1;
+cqlsh:students> SELECT * FROM Student_info;
+
+ rollno | dateofjoin                      | lastexampercent | name
+--------+---------------------------------+-----------------+---------
+      5 | 2021-03-10 18:30:00.000000+0000 |            97.5 |   Suman
+      1 | 2021-03-11 18:30:00.000000+0000 |              97 |   Aswin
+      2 | 2021-03-11 18:30:00.000000+0000 |            98.5 |Shashank
+
+(3 rows)
+cqlsh:students> DELETE FROM Student_info WHERE RollNo=2;
+cqlsh:students> SELECT * FROM Student_info;
+
+ rollno | dateofjoin                      | lastexampercent | name
+--------+---------------------------------+-----------------+--------
+      5 | 2021-03-10 18:30:00.000000+0000 |            97.5 |  Suman
+      1 | 2021-03-11 18:30:00.000000+0000 |              97 |  Aswin
+
+(2 rows)
+cqlsh:students> DELETE LastExamPercent FROM Student_info where RollNo=1;
+cqlsh:students> SELECT * FROM Student_infocqlsh:students> SELECT RollNo,LastExamPercent as "Score" FROM Student_info;
+
+ rollno | Score
+--------+-------
+      5 |  97.5
+      1 |  95.5
+      2 |  98.5
+
+(3 rows)
+cqlsh:students> UPDATE Student_info 
+            ... SET LastExamPercent=97
+            ... WHERE RollNo=1;
+cqlsh:students> SELECT * FROM Student_info;
+
+ rollno | dateofjoin                      | lastexampercent | name
+--------+---------------------------------+-----------------+---------
+      5 | 2021-03-10 18:30:00.000000+0000 |            97.5 |   Suman
+      1 | 2021-03-11 18:30:00.000000+0000 |              97 |   Aswin
+      2 | 2021-03-11 18:30:00.000000+0000 |            98.5 |Shashank
+
+(3 rows)
+cqlsh:students> DELETE FROM Student_info WHERE RollNo=2;
+cqlsh:students> SELECT * FROM Student_info;
+
+ rollno | dateofjoin                      | lastexampercent | name
+--------+---------------------------------+-----------------+--------
+      5 | 2021-03-10 18:30:00.000000+0000 |            97.5 |  Suman
+      1 | 2021-03-11 18:30:00.000000+0000 |              97 |  Aswin
+
+(2 rows)
+cqlsh:students> DELETE LAStExamPercent FROM Student_info where RollNo=1;
+cqlsh:students> SELECT * FROM Student_info;
+
+ rollno | dateofjoin                      | lastexampercent | name
+--------+---------------------------------+-----------------+--------
+      5 | 2021-03-10 18:30:00.000000+0000 |            97.5 |  Suman
+      1 | 2021-03-11 18:30:00.000000+0000 |            null |  Aswin
+
+(2 rows)
+;
+
+ rollno | dateofjoin                      | lastexampercent | name
+--------+---------------------------------+-----------------+--------
+      5 | 2021-03-10 18:30:00.000000+0000 |            97.5 |  Suman
+      1 | 2021-03-11 18:30:00.000000+0000 |            null |  Aswin
+
+(2 rows)
+
+
+
+cqlsh:students> CREATE TABLE Project_Details(
+            ... pid int,
+            ... pname text,
+            ... stud_name text,
+            ... duration int,
+            ... PRIMARY KEY(pid,pname));
+cqlsh:students> DESCRIBE TABLE Project_Details;
+
+CREATE TABLE students.project_details (
+    pid int,
+    pname text,
+    duration int,
+    stud_name text,
+    PRIMARY KEY (pid, pname)
+) WITH CLUSTERING ORDER BY (pname ASC)
+    AND bloom_filter_fp_chance = 0.01
+    AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+    AND comment = ''
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32', 'min_threshold': '4'}
+    AND compression = {'chunk_length_in_kb': '64', 'class': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND crc_check_chance = 1.0
+    AND dclocal_read_repair_chance = 0.1
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99PERCENTILE';
+
+cqlsh:students> BEGIN BATCH INSERT INTO Project_Details(pid,pname,duration,stud_name) VALUES(1,'LMS',3,'Shashank') INSERT INTO Project_Details(pid,pname,duration,stud_name) VALUES(2,'Colab',4,'Aswin') APPLY BATCH;
+
+cqlsh:students> SELECT * FROM Project_Details;
+
+ pid | pname | duration | stud_name
+-----+-------+----------+-----------
+   1 |   LMS |        3 |  Shashank
+   2 | Colab |        4 |     Aswin
+
+(2 rows)
+
+
+cqlsh:students> SELECT * FROM Project_Details
+            ... WHERE PID=2;
+
+ pid | pname | duration | stud_name
+-----+-------+----------+-----------
+   2 | Colab |        4 |     Aswin
+
+(1 rows)
+
+cqlsh:students> CREATE INDEX ON Project_Details(stud_name);
+cqlsh:students> SELECT * FROM Project_Details 
+            ... WHERE stud_name='Shashank';
+
+ pid | pname | duration | stud_name
+-----+-------+----------+-----------
+   1 |   LMS |        3 |  Shashank
+
+(1 rows)
+
+
+cqlsh:students> UPDATE Project_Details SET duration=5 WHERE pid=1 and pname='LMS';
+cqlsh:students> SELECT * FROM Project_Details;
+
+ pid | pname | duration | stud_name
+-----+-------+----------+-----------
+   1 |   LMS |        5 |  Shashank
+   2 | Colab |        4 |     Aswin
+
+(2 rows)
+
+cqlsh:students> DELETE duration FROM Project_Details where pid=2 and pname='Colab';
+cqlsh:students> SELECT * FROM Project_Details;
+
+ pid | pname | duration | stud_name
+-----+-------+----------+-----------
+   1 |   LMS |        5 |  Shashank
+   2 | Colab |     null |     Aswin
+
+(2 rows)
