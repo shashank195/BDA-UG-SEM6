@@ -34,7 +34,7 @@ CREATE TABLE students.student_info (
     AND read_repair_chance = 0.0
     AND speculative_retry = '99PERCENTILE';
 
-cqlsh:students> BEGIN BATCH INSERT INTO Student_info(RollNo, Name, DateOfJoin, LastExamPercent) VALUES(1,'Aswin','2021-03-12',95.5) APPLY BATCH;
+cqlsh:students> BEGIN BATCH INSERT INTO Student_info(RollNo, Name, DateOfJoin, LastExamPercent) VALUES(1,'Varad','2021-03-12',95.5) APPLY BATCH;
 BEGIN BATCH INSERT INTO Student_info(RollNo, Name, DateOfJoin, LastExamPercent) VALUES(2,'Shashank','2021-03-12',98.5) APPLY BATCH;
 BEGIN BATCH INSERT INTO Student_info(RollNo, Name, DateOfJoin, LastExamPercent) VALUES(5,'Suman','2021-03-11',97.5) APPLY BATCH;
 
@@ -43,7 +43,7 @@ cqlsh:students> SELECT * FROM Student_info;
  rollno | dateofjoin                      | lastexampercent | name
 --------+---------------------------------+-----------------+---------
       5 | 2021-03-10 18:30:00.000000+0000 |            97.5 |   Suman
-      1 | 2021-03-11 18:30:00.000000+0000 |            95.5 |   Aswin
+      1 | 2021-03-11 18:30:00.000000+0000 |            95.5 |   Varad
       2 | 2021-03-11 18:30:00.000000+0000 |            98.5 |Shashank
 
 (3 rows)
@@ -53,7 +53,7 @@ cqlsh:students> SELECT * FROM Student_info WHERE RollNo IN (1,2);
 
  rollno | dateofjoin                      | lastexampercent | name
 --------+---------------------------------+-----------------+---------
-      1 | 2021-03-11 18:30:00.000000+0000 |            95.5 |   Aswin
+      1 | 2021-03-11 18:30:00.000000+0000 |            95.5 |   Varad
       2 | 2021-03-11 18:30:00.000000+0000 |            98.5 |Shashank
 
 (2 rows)
@@ -70,8 +70,8 @@ cqlsh:students> SELECT RollNo,Name, LastExamPercent
 
  rollno | name   | lastexampercent
 --------+--------+-----------------
-      5 | Suman  |            97.5
-      1 |  Aswin |            95.5
+      5 |  Suman |            97.5
+      1 |  Varad |            95.5
 
 (2 rows)
 
@@ -92,7 +92,7 @@ cqlsh:students> SELECT * FROM Student_info;
  rollno | dateofjoin                      | lastexampercent | name
 --------+---------------------------------+-----------------+---------
       5 | 2021-03-10 18:30:00.000000+0000 |            97.5 |   Suman
-      1 | 2021-03-11 18:30:00.000000+0000 |              97 |   Aswin
+      1 | 2021-03-11 18:30:00.000000+0000 |              97 |   Varad
       2 | 2021-03-11 18:30:00.000000+0000 |            98.5 |Shashank
 
 (3 rows)
@@ -102,7 +102,7 @@ cqlsh:students> SELECT * FROM Student_info;
  rollno | dateofjoin                      | lastexampercent | name
 --------+---------------------------------+-----------------+--------
       5 | 2021-03-10 18:30:00.000000+0000 |            97.5 |  Suman
-      1 | 2021-03-11 18:30:00.000000+0000 |              97 |  Aswin
+      1 | 2021-03-11 18:30:00.000000+0000 |              97 |  Varad
 
 (2 rows)
 cqlsh:students> DELETE LastExamPercent FROM Student_info where RollNo=1;
@@ -123,7 +123,7 @@ cqlsh:students> SELECT * FROM Student_info;
  rollno | dateofjoin                      | lastexampercent | name
 --------+---------------------------------+-----------------+---------
       5 | 2021-03-10 18:30:00.000000+0000 |            97.5 |   Suman
-      1 | 2021-03-11 18:30:00.000000+0000 |              97 |   Aswin
+      1 | 2021-03-11 18:30:00.000000+0000 |              97 |   Varad
       2 | 2021-03-11 18:30:00.000000+0000 |            98.5 |Shashank
 
 (3 rows)
@@ -133,7 +133,7 @@ cqlsh:students> SELECT * FROM Student_info;
  rollno | dateofjoin                      | lastexampercent | name
 --------+---------------------------------+-----------------+--------
       5 | 2021-03-10 18:30:00.000000+0000 |            97.5 |  Suman
-      1 | 2021-03-11 18:30:00.000000+0000 |              97 |  Aswin
+      1 | 2021-03-11 18:30:00.000000+0000 |              97 |  Varad
 
 (2 rows)
 cqlsh:students> DELETE LAStExamPercent FROM Student_info where RollNo=1;
@@ -142,7 +142,7 @@ cqlsh:students> SELECT * FROM Student_info;
  rollno | dateofjoin                      | lastexampercent | name
 --------+---------------------------------+-----------------+--------
       5 | 2021-03-10 18:30:00.000000+0000 |            97.5 |  Suman
-      1 | 2021-03-11 18:30:00.000000+0000 |            null |  Aswin
+      1 | 2021-03-11 18:30:00.000000+0000 |            null |  Varad
 
 (2 rows)
 ;
@@ -150,7 +150,7 @@ cqlsh:students> SELECT * FROM Student_info;
  rollno | dateofjoin                      | lastexampercent | name
 --------+---------------------------------+-----------------+--------
       5 | 2021-03-10 18:30:00.000000+0000 |            97.5 |  Suman
-      1 | 2021-03-11 18:30:00.000000+0000 |            null |  Aswin
+      1 | 2021-03-11 18:30:00.000000+0000 |            null |  Varad
 
 (2 rows)
 
@@ -186,14 +186,14 @@ CREATE TABLE students.project_details (
     AND read_repair_chance = 0.0
     AND speculative_retry = '99PERCENTILE';
 
-cqlsh:students> BEGIN BATCH INSERT INTO Project_Details(pid,pname,duration,stud_name) VALUES(1,'LMS',3,'Shashank') INSERT INTO Project_Details(pid,pname,duration,stud_name) VALUES(2,'Colab',4,'Aswin') APPLY BATCH;
+cqlsh:students> BEGIN BATCH INSERT INTO Project_Details(pid,pname,duration,stud_name) VALUES(1,'LMS',3,'Shashank') INSERT INTO Project_Details(pid,pname,duration,stud_name) VALUES(2,'Colab',4,'Varad') APPLY BATCH;
 
 cqlsh:students> SELECT * FROM Project_Details;
 
  pid | pname | duration | stud_name
 -----+-------+----------+-----------
    1 |   LMS |        3 |  Shashank
-   2 | Colab |        4 |     Aswin
+   2 | Colab |        4 |     Varad
 
 (2 rows)
 
@@ -203,7 +203,7 @@ cqlsh:students> SELECT * FROM Project_Details
 
  pid | pname | duration | stud_name
 -----+-------+----------+-----------
-   2 | Colab |        4 |     Aswin
+   2 | Colab |        4 |     Varad
 
 (1 rows)
 
@@ -224,7 +224,7 @@ cqlsh:students> SELECT * FROM Project_Details;
  pid | pname | duration | stud_name
 -----+-------+----------+-----------
    1 |   LMS |        5 |  Shashank
-   2 | Colab |        4 |     Aswin
+   2 | Colab |        4 |     Varad
 
 (2 rows)
 
@@ -234,6 +234,6 @@ cqlsh:students> SELECT * FROM Project_Details;
  pid | pname | duration | stud_name
 -----+-------+----------+-----------
    1 |   LMS |        5 |  Shashank
-   2 | Colab |     null |     Aswin
+   2 | Colab |     null |     Varad
 
 (2 rows)
