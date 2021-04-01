@@ -16,7 +16,7 @@ cqlsh:assignment> select * from driver;
  driver_name | current_position | mobile     | password | skill
 -------------+------------------+------------+----------+-----------------------------------
    Siddharth |       Wellington | 9380417069 |   123456 |               {'Passenger train'}
-     Shashank|           FA4567 | 9380417049 |  1234578 | {'express train,passenger train'}
+    Shashank |           FA4567 | 9380417049 |  1234578 | {'express train,passenger train'}
 
 (2 rows)
 cqlsh:assignment> create table vehicles(vehicle_id ascii primary key,status ascii,type ascii);
