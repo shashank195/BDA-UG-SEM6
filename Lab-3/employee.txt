@@ -9,8 +9,8 @@ system      system_schema       system_virtual_schema
 
 cqlsh> use assignment;
 cqlsh:assignment> create table driver(driver_name text primary key,password ascii,mobile bigint,current_position text,skill set<text>);
-cqlsh:assignment>  begin batch insert into driver(driver_name,password,mobile,current_position,skill) values('saakshi','1234578',9380417049,'FA4567',{'express train,passenger train'}); apply batch;
-cqlsh:assignment> begin batch insert into driver(driver_name,password,mobile,current_position,skill) values('Swen','123456',9380417069,'Wellington',{'Passenger train'}); apply batch;
+cqlsh:assignment>  begin batch insert into driver(driver_name,password,mobile,current_position,skill) values('Shashank','1234578',9380417049,'FA4567',{'express train,passenger train'}); apply batch;
+cqlsh:assignment> begin batch insert into driver(driver_name,password,mobile,current_position,skill) values('Siddharth','123456',9380417069,'Wellington',{'Passenger train'}); apply batch;
 cqlsh:assignment> select * from driver;
 
  driver_name | current_position | mobile     | password | skill
