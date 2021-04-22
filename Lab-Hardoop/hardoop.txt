@@ -141,7 +141,7 @@ drwxr-xr-x   - hduser supergroup          0 2021-04-18 17:44 /shashank
 
 
 
-hduser@shashank195:/usr/local/hadoop/sbin$ hadoop fs -expunge
+hduser@shashank195:/usr/local/hadoop/sbin$ hadoop fs -expunge 
 21/04/18 17:51:01 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
 21/04/18 17:51:02 INFO fs.TrashPolicyDefault: Namenode trash configuration: Deletion interval = 0 minutes, Emptier interval = 0 minutes.
 
