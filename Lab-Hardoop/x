@@ -1,1 +1,234 @@
+hduser@shashank195:/usr/local/hadoop/sbin$ ls -lrt
+total 120
+-rwxr-xr-x 1 hduser hadoop 1353 Nov 14  2014 yarn-daemons.sh
+-rwxr-xr-x 1 hduser hadoop 4295 Nov 14  2014 yarn-daemon.sh
+-rwxr-xr-x 1 hduser hadoop 1340 Nov 14  2014 stop-yarn.sh
+-rwxr-xr-x 1 hduser hadoop 1642 Nov 14  2014 stop-yarn.cmd
+-rwxr-xr-x 1 hduser hadoop 1340 Nov 14  2014 stop-secure-dns.sh
+-rwxr-xr-x 1 hduser hadoop 3206 Nov 14  2014 stop-dfs.sh
+-rwxr-xr-x 1 hduser hadoop 1455 Nov 14  2014 stop-dfs.cmd
+-rwxr-xr-x 1 hduser hadoop 1179 Nov 14  2014 stop-balancer.sh
+-rwxr-xr-x 1 hduser hadoop 1462 Nov 14  2014 stop-all.sh
+-rwxr-xr-x 1 hduser hadoop 1770 Nov 14  2014 stop-all.cmd
+-rwxr-xr-x 1 hduser hadoop 1347 Nov 14  2014 start-yarn.sh
+-rwxr-xr-x 1 hduser hadoop 1571 Nov 14  2014 start-yarn.cmd
+-rwxr-xr-x 1 hduser hadoop 1357 Nov 14  2014 start-secure-dns.sh
+-rwxr-xr-x 1 hduser hadoop 3705 Nov 14  2014 start-dfs.sh
+-rwxr-xr-x 1 hduser hadoop 1401 Nov 14  2014 start-dfs.cmd
+-rwxr-xr-x 1 hduser hadoop 1128 Nov 14  2014 start-balancer.sh
+-rwxr-xr-x 1 hduser hadoop 1471 Nov 14  2014 start-all.sh
+-rwxr-xr-x 1 hduser hadoop 1779 Nov 14  2014 start-all.cmd
+-rwxr-xr-x 1 hduser hadoop 2145 Nov 14  2014 slaves.sh
+-rwxr-xr-x 1 hduser hadoop 1648 Nov 14  2014 refresh-namenodes.sh
+-rwxr-xr-x 1 hduser hadoop 4080 Nov 14  2014 mr-jobhistory-daemon.sh
+-rwxr-xr-x 1 hduser hadoop 2059 Nov 14  2014 kms.sh
+-rwxr-xr-x 1 hduser hadoop 2291 Nov 14  2014 httpfs.sh
+-rwxr-xr-x 1 hduser hadoop 1427 Nov 14  2014 hdfs-config.sh
+-rwxr-xr-x 1 hduser hadoop 1640 Nov 14  2014 hdfs-config.cmd
+-rwxr-xr-x 1 hduser hadoop 1360 Nov 14  2014 hadoop-daemons.sh
+-rwxr-xr-x 1 hduser hadoop 6452 Nov 14  2014 hadoop-daemon.sh
+-rwxr-xr-x 1 hduser hadoop 2752 Nov 14  2014 distribute-exclude.sh
 
+
+
+hduser@shashank195:/usr/local/hadoop/sbin$ jps
+43171 ResourceManager
+42724 NameNode
+43050 SecondaryNameNode
+42874 DataNode
+43483 NodeManager
+44398 Jps
+
+
+
+hduser@shashank195:/usr/local/hadoop/sbin$ hdfs dfs -ls /
+21/04/18 15:25:51 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+
+
+
+hduser@shashank195:/usr/local/hadoop/sbin$ cd ~
+hduser@shashank195:~$ cd /home
+hduser@shashank195:/home$ cd shashank
+hduser@shashank195:/home/shashank$ cat > shashank.txt
+bash: shashank195.txt: Permission denied
+hduser@shashank195:/home/shashank$ sudo chmod -R 777 /home/shashank/
+[sudo] password for hduser: 
+hduser@shashank195:/home/shashank$ cat > akanksha.txt
+shashank
+hduser@shashank195:/home/shashank$ ls
+shashank195.txt  Documents  Music     Public     Videos
+Desktop       Downloads  Pictures  Templates
+hduser@shashank195:/home/shashank$ cd ~
+hduser@shashank195:~$ cd /usr/local/hadoop/sbin
+hduser@shashank195:/usr/local/hadoop/sbin$ hdfs dfs -put /home/shashank/shashank.txt /
+21/04/18 15:55:42 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+hduser@shashank195:/usr/local/hadoop/sbin$ hdfs dfs -ls /
+21/04/18 15:56:33 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Found 1 items
+-rw-r--r--   1 hduser supergroup          9 2021-04-18 15:55 /shashank.txt
+
+
+
+hduser@shashank195:/usr/local/hadoop/sbin$ hadoop fs -mkdir /shashank
+21/04/18 15:58:33 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+hduser@shashank195:/usr/local/hadoop/sbin$ hdfs dfs -ls /
+21/04/18 15:58:54 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Found 2 items
+drwxr-xr-x   - hduser supergroup          0 2021-04-18 15:58 /shashank
+-rw-r--r--   1 hduser supergroup          9 2021-04-18 15:55 /shashank.txt
+
+
+
+hduser@shashank195:/usr/local/hadoop/sbin$ cd ~
+hduser@shashank195:~$ cd /home
+hduser@shashank195:/home$ cd shashank
+hduser@shashank195:/home/shashank$ ls
+shashank.txt  Documents  Music     Public     Videos
+Desktop       Downloads  Pictures  Templates
+hduser@shashank195:/home/shashank$ mkdir Test-folder
+hduser@shashank195:/home/shashank$ cd Test-folder
+hduser@shashank195:/home/shashank/Test-folder$ cat > test1.txt
+hduser@shashank195:/home/shashank/Test-folder$ ls
+test1.txt
+hduser@shashank195:/home/shashank/Test-folder$ cd ~
+hduser@shashank195:~$ cd /usr/local/hadoop/sbin
+hduser@shashank195:/usr/local/hadoop/sbin$ hadoop fs -moveFromLocal /home/shashank/Test-folder/test1.txt /
+21/04/18 17:37:09 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+moveFromLocal: `/test1.txt': File exists
+hduser@shashank195:/usr/local/hadoop/sbin$ hdfs dfs -ls /
+21/04/18 17:37:34 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Found 3 items
+drwxr-xr-x   - hduser supergroup          0 2021-04-18 15:58 /shashank
+-rw-r--r--   1 hduser supergroup          9 2021-04-18 15:55 /shashank.txt
+-rw-r--r--   1 hduser supergroup          0 2021-04-18 17:25 /test1.txt
+
+
+
+hduser@shashank195:/usr/local/hadoop/sbin$ hadoop fs -mkdir /Destination
+21/04/18 17:43:22 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+hduser@shashank195:/usr/local/hadoop/sbin$ hdfs dfs -ls /
+21/04/18 17:43:35 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Found 4 items
+drwxr-xr-x   - hduser supergroup          0 2021-04-18 17:43 /Destination
+drwxr-xr-x   - hduser supergroup          0 2021-04-18 15:58 /shashank
+-rw-r--r--   1 hduser supergroup          9 2021-04-18 15:55 /shashank.txt
+-rw-r--r--   1 hduser supergroup          0 2021-04-18 17:25 /test1.txt
+hduser@shashank195:/usr/local/hadoop/sbin$ hadoop fs -mv /Destination /akanksha
+21/04/18 17:44:22 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+hduser@shashank195:/usr/local/hadoop/sbin$ hdfs dfs -ls /
+21/04/18 17:44:29 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Found 3 items
+drwxr-xr-x   - hduser supergroup          0 2021-04-18 17:44 /shashank
+-rw-r--r--   1 hduser supergroup          9 2021-04-18 15:55 /shashank.txt
+-rw-r--r--   1 hduser supergroup          0 2021-04-18 17:25 /test1.txt
+
+
+
+hduser@shashank195:/usr/local/hadoop/sbin$ hadoop fs -moveToLocal /home/shashank/Destination /
+moveToLocal: Option '-moveToLocal' is not implemented yet.
+
+
+
+hduser@shashank195:/usr/local/hadoop/sbin$ hadoop fs -rm /shashank.txt
+21/04/18 17:49:44 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+21/04/18 17:49:46 INFO fs.TrashPolicyDefault: Namenode trash configuration: Deletion interval = 0 minutes, Emptier interval = 0 minutes.
+Deleted /shashank.txt
+hduser@shashank195:/usr/local/hadoop/sbin$ hdfs dfs -ls /
+21/04/18 17:49:58 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Found 2 items
+drwxr-xr-x   - hduser supergroup          0 2021-04-18 17:44 /akanksha
+-rw-r--r--   1 hduser supergroup          0 2021-04-18 17:25 /test1.txt
+
+
+
+hduser@shashank195:/usr/local/hadoop/sbin$ hadoop fs -expunge
+21/04/18 17:51:01 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+21/04/18 17:51:02 INFO fs.TrashPolicyDefault: Namenode trash configuration: Deletion interval = 0 minutes, Emptier interval = 0 minutes.
+
+
+
+hduser@shashank195:/usr/local/hadoop/sbin$ hadoop fs -ls /
+21/04/18 17:54:53 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Found 2 items
+drwxr-xr-x   - hduser supergroup          0 2021-04-18 17:44 /shashank
+-rw-r--r--   1 hduser supergroup          0 2021-04-18 17:25 /test1.txt
+hduser@shashank195:/usr/local/hadoop/sbin$ hadoop fs -chown something /test1.txt
+21/04/18 17:55:57 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+hduser@shashank195:/usr/local/hadoop/sbin$ hadoop fs -ls /
+21/04/18 17:56:05 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Found 2 items
+drwxr-xr-x   - hduser    supergroup          0 2021-04-18 17:44 /akanksha
+-rw-r--r--   1 something supergroup          0 2021-04-18 17:25 /test1.txt
+
+
+
+hduser@shashank195:/usr/local/hadoop/sbin$ hadoop fs -chgrp newgroup /test1.txt
+21/04/18 17:57:20 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+hduser@shashank195:/usr/local/hadoop/sbin$ hadoop fs -ls /
+21/04/18 17:57:27 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Found 2 items
+drwxr-xr-x   - hduser    supergroup          0 2021-04-18 17:44 /akanksha
+-rw-r--r--   1 something newgroup            0 2021-04-18 17:25 /test1.txt
+
+
+
+hduser@shashank195:/usr/local/hadoop/sbin$ hadoop fs -setrep 2 /test1.txt
+21/04/18 17:59:20 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Replication 2 set: /test1.txt
+
+
+
+hduser@shashank195:/usr/local/hadoop/sbin$ hadoop fs -du -s /test1.txt
+21/04/18 18:06:29 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+0  /test1.txt
+
+
+
+hduser@shashank195:/usr/local/hadoop/sbin$ hadoop fs -df
+21/04/18 18:08:02 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Filesystem                     Size   Used    Available  Use%
+hdfs://localhost:54310  36959698944  36864  26140106752    0%
+
+
+
+hduser@shashank195:/usr/local/hadoop/sbin$ hadoop fsck / -files
+DEPRECATED: Use of this script to execute hdfs command is deprecated.
+Instead use the hdfs command for it.
+
+21/04/18 18:10:37 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Connecting to namenode via http://localhost:50070
+FSCK started by hduser (auth:SIMPLE) from /127.0.0.1 for path / at Sun Apr 18 18:10:40 IST 2021
+/ <dir>
+/shashank <dir>
+/shashank/Destination <dir>
+/test1.txt 0 bytes, 0 block(s):  OK
+Status: HEALTHY
+ Total size:	0 B
+ Total dirs:	3
+ Total files:	1
+ Total symlinks:		0
+ Total blocks (validated):	0
+ Minimally replicated blocks:	0
+ Over-replicated blocks:	0
+ Under-replicated blocks:	0
+ Mis-replicated blocks:		0
+ Default replication factor:	1
+ Average block replication:	0.0
+ Corrupt blocks:		0
+ Missing replicas:		0
+ Number of data-nodes:		1
+ Number of racks:		1
+FSCK ended at Sun Apr 18 18:10:40 IST 2021 in 106 milliseconds
+
+
+The filesystem under path '/' is HEALTHY
+
+
+
+hduser@shashank195:/usr/local/hadoop/sbin$ cd ~
+hduser@shashank195:~$ su akanksha
+Password: 
+su: Authentication failure
+hduser@shashank195:~$ su shashank
+Password: 
+akanksha@shashank195:/home/hduser$
