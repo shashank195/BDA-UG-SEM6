@@ -53,7 +53,7 @@ hduser@shashank195:/home/shashank$ cat > shashank.txt
 bash: shashank195.txt: Permission denied
 hduser@shashank195:/home/shashank$ sudo chmod -R 777 /home/shashank/
 [sudo] password for hduser: 
-hduser@shashank195:/home/shashank$ cat > akanksha.txt
+hduser@shashank195:/home/shashank$ cat > shashank.txt
 shashank
 hduser@shashank195:/home/shashank$ ls
 shashank195.txt  Documents  Music     Public     Videos
