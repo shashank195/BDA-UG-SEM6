@@ -113,7 +113,7 @@ drwxr-xr-x   - hduser supergroup          0 2021-04-18 17:43 /Destination
 drwxr-xr-x   - hduser supergroup          0 2021-04-18 15:58 /shashank
 -rw-r--r--   1 hduser supergroup          9 2021-04-18 15:55 /shashank.txt
 -rw-r--r--   1 hduser supergroup          0 2021-04-18 17:25 /test1.txt
-hduser@shashank195:/usr/local/hadoop/sbin$ hadoop fs -mv /Destination /akanksha
+hduser@shashank195:/usr/local/hadoop/sbin$ hadoop fs -mv /Destination /shashank
 21/04/18 17:44:22 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
 hduser@shashank195:/usr/local/hadoop/sbin$ hdfs dfs -ls /
 21/04/18 17:44:29 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
